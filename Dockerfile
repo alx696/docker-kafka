@@ -1,4 +1,4 @@
-FROM registry.cn-shanghai.aliyuncs.com/xm69/jre:openj9
+FROM registry.cn-shanghai.aliyuncs.com/xm69/jre:11
 
 WORKDIR /server
 
