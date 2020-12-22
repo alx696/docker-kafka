@@ -9,10 +9,11 @@
 
 ## 环境变量
 
-* `KEYSTORE_PASSWORD` 证书库密码
 * `IP` 最终提供服务IP, 如要公网使用此处设置公网IP
 * `PLAINTEXT_PORT` 非加密端口, 对应内部端口`9092`
+* `KEYSTORE_PASSWORD` 证书库密码
 * `SSL_PORT` 加密端口, 对应内部端口`9093`
+> 不启用TLS时，不要设置`KEYSTORE_PASSWORD`和`SSL_PORT`。
 
 ### 构建
 
@@ -26,10 +27,10 @@ $ docker build -t registry.cn-shanghai.aliyuncs.com/xm69/kafka:2.6 .
 $ docker run -d --restart=always \
   -p 39092:9092 \
   -p 39093:9093 \
-  -v $PWD/kafka.keystore.jks:/server/ssl/keystore.jks \
-  -e KEYSTORE_PASSWORD="123456" \
+  -v "$PWD/kafka.keystore.jks":/server/ssl/keystore.jks \
   -e IP="192.168.1.200" \
   -e PLAINTEXT_PORT="39092" \
+  -e KEYSTORE_PASSWORD="123456" \
   -e SSL_PORT="39093" \
   --name "kafka" registry.cn-shanghai.aliyuncs.com/xm69/kafka:2.6
 ```

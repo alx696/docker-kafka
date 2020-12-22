@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -ex
 
 # 设置最终使用IP
 if [ -z "$IP" ]; then
