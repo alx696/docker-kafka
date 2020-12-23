@@ -17,7 +17,7 @@
 ### 构建
 
 ```
-$ docker build -t registry.cn-shanghai.aliyuncs.com/xm69/kafka:2.6 .
+$ docker build -t registry.cn-shanghai.aliyuncs.com/xm69/kafka:2.7 .
 ```
 
 ### 运行
@@ -31,6 +31,6 @@ $ docker run -d --restart=always \
   -e PLAINTEXT_PORT="39092" \
   -e KEYSTORE_PASSWORD="123456" \
   -e SSL_PORT="39093" \
-  --name "kafka" registry.cn-shanghai.aliyuncs.com/xm69/kafka:2.6
+  --name "kafka" registry.cn-shanghai.aliyuncs.com/xm69/kafka:2.7
 ```
 > 不启用TLS时，不要设置`KEYSTORE_PASSWORD`和`SSL_PORT`。

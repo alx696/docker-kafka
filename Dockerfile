@@ -1,16 +1,17 @@
-FROM registry.cn-shanghai.aliyuncs.com/xm69/jre:11
+FROM registry.cn-shanghai.aliyuncs.com/xm69/alpine-jre:11
 
 WORKDIR /server
 
 # 下载软件（注意: 清华镜像路径经常调整, 修改版本前确认链接是否可用!）
-ENV VERSION_KAFKA 2.6.0
+ENV VERSION_SCALA 2.13
+ENV VERSION_KAFKA 2.7.0
 ENV VERSION_ZOOKEEPER 3.5.8
 RUN set -eux && \
   # Kafka
-  wget "https://mirrors.tuna.tsinghua.edu.cn/apache/kafka/$VERSION_KAFKA/kafka_2.12-$VERSION_KAFKA.tgz" && \
-  tar zxf "kafka_2.12-$VERSION_KAFKA.tgz" && \
-  rm "kafka_2.12-$VERSION_KAFKA.tgz" && \
-  mv "kafka_2.12-$VERSION_KAFKA" "kafka" && \
+  wget "https://mirrors.tuna.tsinghua.edu.cn/apache/kafka/$VERSION_KAFKA/kafka_$VERSION_SCALA-$VERSION_KAFKA.tgz" && \
+  tar zxf "kafka_$VERSION_SCALA-$VERSION_KAFKA.tgz" && \
+  rm "kafka_$VERSION_SCALA-$VERSION_KAFKA.tgz" && \
+  mv "kafka_$VERSION_SCALA-$VERSION_KAFKA" "kafka" && \
   # Zookeeper
   wget "https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/stable/apache-zookeeper-$VERSION_ZOOKEEPER-bin.tar.gz" && \
   tar zxf "apache-zookeeper-$VERSION_ZOOKEEPER-bin.tar.gz" && \
@@ -21,6 +22,8 @@ RUN set -eux && \
 ENV KAFKA_CONFIG "kafka/config/server.properties"
 COPY ["resource/", "/resource/"]
 RUN set -eux && \
+  # 安装bash
+  apk add --update --no-cache bash && \
   # 放置资源
   mv /resource/entrypoint.sh / && \
   chmod +x /entrypoint.sh && \
